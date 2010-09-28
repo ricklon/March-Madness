@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>Seriality test of RGB Json data in web page using Seriality</title>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="json2.js"></script>
+
+  <script type="text/javascript">
+
+ $(document).ready(function(){
+      var serial;
+      var log = '-';
+
+    function loop()
+    {
+      var json;
+      var data;
+      if (serial.available()) {
+        json = serial.readJSON();
+	//console.log("json:" + json);
+        document.getElementById("status").innerHTML = json;
+	if (json != undefined && json != "") {
+        	data = JSON.parse(json);
+          	document.getElementById("current").value = data.entry['photoVal'] ;
+        }
+        serial.write(log);
+      }
+    }
+
+     serial = (document.getElementById("seriality")).Seriality();
+      serial.begin(serial.ports[0], 9600);
+      serial.write('!');
+    	$('#on').bind('click', function() {
+		if (log === '-') {
+			log = '!';
+		} else {
+			log = '-';
+		}
+	console.log("click: " + log);
+	});
+
+    	setInterval(loop, 1250);
+  });
+
+ 
+  </script>
+
+</head>
+<body>
+
+  <object type="application/Seriality" id="seriality" width="0" height="0"></object>
+
+  <h3>Parse JSON RGB data</h3>
+  <p>RGB Data formatted in JSON with an on/off button</p>
+
+  <form>
+    <button id="on" type="button" value="-">On/Off</button>
+	
+    <br />Photo Resistor Value: <input id="current" type="text" />
+    <div id="status"></div>
+  </form>
+
+</body>
+</html>

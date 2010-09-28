@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>Form serialize and sign with sha1/title>
+<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.custom.css" rel="stylesheet" />	
+<link href="css/rgb.css" type="text/css" rel="stylesheet"/>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+<script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
+
+<script type="text/javascript">
+        $(function() {
+
+		str = $("form").serialize().split("&").sort().join("&");
+		hex_str = hex_sha1(str);
+		console.log(str + "&sig=" + hex_str);
+
+        });
+
+</script>
+</head>
+<body>
+<div class="testapp">
+
+<p class="ui-state-default ui-corner-all ui-helper-clearfix" style="padding:4px;">
+<span class="ui-icon ui-icon-pencil" style="float:left; margin:-2px 5px 0 0;"></span>
+Form serialize and sign with sha1
+</p>
+
+<div class="testapp-description" style="clear:left;">
+
+<p>Collect form data and sign with sha1</p>
+
+<form>
+<input id="f1" name="f1" value="1"> </input>
+<input id="f2" name="f2" value="2"> </input>
+<input id="f3" name="f3" value="3"> </input>
+
+
+</form>
+
+</div>
+</body>
+</html>
